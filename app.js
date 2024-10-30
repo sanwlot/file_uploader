@@ -1,40 +1,38 @@
 import express from "express"
-// import path from "path"
 import dotenv from "dotenv"
 import session from "express-session"
 import passport from "passport"
 import { PrismaClient } from "@prisma/client"
-
-dotenv.config()
 import indexRouter from "./routes/index.js"
 import signUpRouter from "./routes/signUp.js"
 import fileUploadRouter from "./routes/fileUpload.js"
-import { isAuthenticated } from "./passportConfig.js"
 import foldersRouter from "./routes/folders.js"
 import logInRouter from "./routes/logIn.js"
 import logOutRouter from "./routes/logOut.js"
+dotenv.config()
 
 const app = express()
 const prisma = new PrismaClient()
 
+// import path from "path"
 // import { fileURLToPath } from "url"
 // const __filename = fileURLToPath(import.meta.url)
 // const __dirname = path.dirname(__filename)
-
 // app.set("views", path.join(__dirname, "views"))
+
 app.set("view engine", "ejs")
 app.use(express.static("public"))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-
 app.use(session({ secret: "cats", resave: false, saveUninitialized: false }))
 app.use(passport.session())
 
+// Routes
 app.use("/", indexRouter)
 app.use("/sign-up", signUpRouter)
 app.use("/log-in", logInRouter)
 app.use("/file-upload", fileUploadRouter)
-app.get("/log-out", logOutRouter)
-app.use("/folders", isAuthenticated, foldersRouter)
+app.use("/log-out", logOutRouter)
+app.use("/folders", foldersRouter)
 
-app.listen(4000)
+app.listen(4000, () => console.log("server started"))
