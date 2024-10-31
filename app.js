@@ -27,7 +27,6 @@ app.use(express.urlencoded({ extended: false }))
 app.use(session({ secret: "cats", resave: false, saveUninitialized: false }))
 app.use(passport.session())
 
-// Routes
 app.use("/", indexRouter)
 app.use("/sign-up", signUpRouter)
 app.use("/log-in", logInRouter)
