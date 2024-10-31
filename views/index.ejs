@@ -20,9 +20,25 @@
       width: 100%;
     }
 
+    .upload-file-container {
+      color: white;
+      text-align: center;
+    }
+
     .upload-file {
       color: white;
+      text-decoration: none;
+      background-color: #007bff;
+      padding: 0.5rem;
+      border-radius: 4px;
+      transition: background-color 0.3s;
     }
+
+    .upload-file:hover {
+      background-color: #05356a;
+
+    }
+
 
     .delete-folder-btn {
       margin: 0;
@@ -170,8 +186,8 @@
     <h3><%= user.name %></h3>
     <a href="/log-out">LOG OUT</a>
   </div>
-  <div>
-    <a class="upload-file" href="/file-upload">Upload a file</a>
+  <div class="upload-file-container">
+    <a class="upload-file" href="/file-upload">Upload File</a>
   </div>
 
   <div class="folder-list-container">
