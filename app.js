@@ -2,7 +2,6 @@ import express from "express"
 import dotenv from "dotenv"
 import session from "express-session"
 import passport from "passport"
-// import { PrismaClient } from "@prisma/client"
 import indexRouter from "./routes/index.js"
 import signUpRouter from "./routes/signUp.js"
 import fileUploadRouter from "./routes/fileUpload.js"
@@ -14,7 +13,6 @@ import { prisma } from "./db.js"
 dotenv.config()
 
 const app = express()
-// const prisma = new PrismaClient()
 
 // import path from "path"
 // import { fileURLToPath } from "url"
@@ -45,7 +43,7 @@ app.post("/delete/:id", async (req, res) => {
         id: parseInt(id),
       },
     })
-
+    console.log("file publicId:", file.publicId)
     if (!file) {
       return res.status(404).send("File not found")
     }
