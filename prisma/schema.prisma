@@ -42,6 +42,7 @@ model File {
   userId     Int
   folder     Folder   @relation(fields: [folderId], references: [id])
   folderId   Int
+  publicId   String   @unique
 
   @@unique([userId, name]) // Optional: Unique file names per user
 }
