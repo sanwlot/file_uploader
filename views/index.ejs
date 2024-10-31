@@ -16,11 +16,27 @@
       all: unset;
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      width: 100%;
     }
 
     .upload-file {
       color: white;
     }
+
+    .delete-folder-btn {
+      margin: 0;
+      padding: 1px 5px;
+      background-color: white;
+      font-size: 10px;
+      color: black;
+    }
+
+    .delete-folder-form {
+      padding: 0;
+
+    }
+
 
     body {
       font-family: Arial, sans-serif;
@@ -140,7 +156,7 @@
     }
 
     button:hover {
-      background-color: #0056b3;
+      color: red;
     }
   </style>
 </head>
@@ -170,10 +186,12 @@
       <% if(folder.userId === locals.user.id) { %>
       <li class="folder-item">
         <a class="folder-link" href="/folders/<%= folder.id %>">
-          <div class="folder-icon">&#128193;</div>
-          <span><%= folder.name %></span>
-          <form action="/folders/delete/<%= folder.id %>" method="POST">
-            <button>Delete</button>
+          <div style="display: flex; align-items: center;">
+            <div class="folder-icon">&#128193;</div>
+            <span><%= folder.name %></span>
+          </div>
+          <form class="delete-folder-form" action="/folders/delete/<%= folder.id %>" method="POST">
+            <button class="delete-folder-btn">Delete</button>
           </form>
         </a>
       </li>

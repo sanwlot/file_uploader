@@ -1,4 +1,5 @@
 import { prisma } from "../db.js"
+import { v2 as cloudinary } from "cloudinary"
 
 export async function postNewFolder(req, res) {
   // Ensure the folder name is provided

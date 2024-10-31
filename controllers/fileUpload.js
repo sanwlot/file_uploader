@@ -20,7 +20,7 @@ export async function postFileUpload(req, res) {
 
     const publicId = extractPublicId(req.file.path)
 
-    const fileRecord = await prisma.file.create({
+    await prisma.file.create({
       data: {
         name: req.file.originalname,
         url: req.file.path,
@@ -30,11 +30,7 @@ export async function postFileUpload(req, res) {
       },
     })
 
-    res.status(200).json({
-      success: true,
-      message: "File uploaded successfully",
-      data: fileRecord,
-    })
+    res.redirect("/")
   } catch (error) {
     console.error("Error uploading file:", error)
     return res.status(500).json({
