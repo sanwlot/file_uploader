@@ -51,11 +51,14 @@ app.post("/delete/:id", async (req, res) => {
     }
 
     // Delete from Cloudinary
-    const result = await cloudinary.uploader.destroy(file.filename) // <= public_id from Cloudinary missing
+    const result = await cloudinary.uploader.destroy(file.publicId)
+    console.log(result)
+
     if (result.result !== "ok") {
       return res.status(500).json({
         success: false,
         message: "Error deleting file from Cloudinary",
+        error: result,
       })
     }
 
@@ -66,7 +69,7 @@ app.post("/delete/:id", async (req, res) => {
       },
     })
 
-    res.redirect("/folders")
+    res.redirect("/")
   } catch (error) {
     console.error("Deletion error:", error)
     res.status(500).json({ success: false, message: "Error deleting file" })

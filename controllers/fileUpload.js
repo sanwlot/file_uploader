@@ -1,4 +1,5 @@
 import { prisma } from "../db.js"
+import { extractPublicId } from "cloudinary-build-url"
 
 export async function getfileUpload(req, res) {
   const folders = await prisma.folder.findMany()
@@ -15,7 +16,9 @@ export async function postFileUpload(req, res) {
 
   try {
     // Log req.file to ensure it has the expected data
-    console.log("File data:", req.file)
+    // console.log("File data:", req.file)
+
+    const publicId = extractPublicId(req.file.path)
 
     const fileRecord = await prisma.file.create({
       data: {
@@ -23,7 +26,7 @@ export async function postFileUpload(req, res) {
         url: req.file.path,
         folderId: parseInt(req.body.folderId, 10),
         userId: req.user.id,
-        // file public_id from cloudinary
+        publicId,
       },
     })
 
