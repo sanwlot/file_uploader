@@ -172,6 +172,9 @@
         <a class="folder-link" href="/folders/<%= folder.id %>">
           <div class="folder-icon">&#128193;</div>
           <span><%= folder.name %></span>
+          <form action="/folders/delete/<%= folder.id %>" method="POST">
+            <button>Delete</button>
+          </form>
         </a>
       </li>
       <% } %>

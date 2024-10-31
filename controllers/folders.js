@@ -62,3 +62,40 @@ export async function getFolder(req, res) {
     res.status(500).send("An error occurred")
   }
 }
+
+export async function deleteFolder(req, res) {
+  const folderId = parseInt(req.params.id)
+
+  try {
+    // find all files of the folder
+    const files = await prisma.file.findMany({
+      where: {
+        folderId,
+      },
+    })
+
+    // delete files from Cloudinary
+    for (const file of files) {
+      const result = await cloudinary.uploader.destroy(file.publicId)
+      if (result.result !== "ok") {
+        console.error("Error deleting file from Cloudinary:", result)
+      }
+    }
+
+    // Delete all files in the folder
+    await prisma.file.deleteMany({
+      where: { folderId },
+    })
+
+    // delete the folder
+    await prisma.folder.delete({
+      where: {
+        id: folderId,
+      },
+    })
+    res.redirect("/")
+  } catch (error) {
+    console.error("Error deleting folder and files:", error)
+    res.status(500).send("An error occurred")
+  }
+}
