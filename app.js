@@ -8,8 +8,7 @@ import fileUploadRouter from "./routes/fileUpload.js"
 import foldersRouter from "./routes/folders.js"
 import logInRouter from "./routes/logIn.js"
 import logOutRouter from "./routes/logOut.js"
-import { v2 as cloudinary } from "cloudinary"
-import { prisma } from "./db.js"
+import deleteFileRouter from "./routes/file.js"
 dotenv.config()
 
 const app = express()
@@ -33,45 +32,6 @@ app.use("/log-in", logInRouter)
 app.use("/file-upload", fileUploadRouter)
 app.use("/log-out", logOutRouter)
 app.use("/folders", foldersRouter)
-
-app.post("/delete/:id", async (req, res) => {
-  const { id } = req.params
-  try {
-    // Find the file in the database
-    const file = await prisma.file.findUnique({
-      where: {
-        id: parseInt(id),
-      },
-    })
-    console.log("file publicId:", file.publicId)
-    if (!file) {
-      return res.status(404).send("File not found")
-    }
-
-    // Delete from Cloudinary
-    const result = await cloudinary.uploader.destroy(file.publicId)
-    console.log(result)
-
-    if (result.result !== "ok") {
-      return res.status(500).json({
-        success: false,
-        message: "Error deleting file from Cloudinary",
-        error: result,
-      })
-    }
-
-    // Delete the file from the database
-    await prisma.file.delete({
-      where: {
-        id: parseInt(id),
-      },
-    })
-
-    res.redirect("/")
-  } catch (error) {
-    console.error("Deletion error:", error)
-    res.status(500).json({ success: false, message: "Error deleting file" })
-  }
-})
+app.use("/file", deleteFileRouter)
 
 app.listen(4000, () => console.log("server started"))
