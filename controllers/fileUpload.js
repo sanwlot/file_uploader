@@ -51,8 +51,6 @@ export async function postFileUpload(req, res) {
   try {
     // Log req.file to ensure it has the expected data
     console.log("File data:", req.file)
-    // Log req.user to ensure the user is authenticated
-    console.log("User data:", req.user)
 
     const fileRecord = await prisma.file.create({
       data: {
@@ -60,6 +58,7 @@ export async function postFileUpload(req, res) {
         url: req.file.path,
         folderId: parseInt(req.body.folderId, 10),
         userId: req.user.id,
+        // file public_id from cloudinary
       },
     })
 

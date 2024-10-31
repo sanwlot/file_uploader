@@ -2,7 +2,7 @@ import express from "express"
 import dotenv from "dotenv"
 import session from "express-session"
 import passport from "passport"
-import { PrismaClient } from "@prisma/client"
+// import { PrismaClient } from "@prisma/client"
 import indexRouter from "./routes/index.js"
 import signUpRouter from "./routes/signUp.js"
 import fileUploadRouter from "./routes/fileUpload.js"
@@ -12,7 +12,7 @@ import logOutRouter from "./routes/logOut.js"
 dotenv.config()
 
 const app = express()
-const prisma = new PrismaClient()
+// const prisma = new PrismaClient()
 
 // import path from "path"
 // import { fileURLToPath } from "url"

@@ -56,6 +56,11 @@
       color: #333;
     }
 
+    .file-actions {
+      display: flex;
+      align-items: center;
+    }
+
     .file-actions a {
       text-decoration: none;
       color: #007bff;
@@ -76,6 +81,9 @@
         <div class="file-actions">
           <a href="<%= file.url %>" target="_blank">View</a>
           <a href="/download/<%= file.id %>">Download</a>
+          <form action="/delete/<%= file.id %>" method="POST">
+            <a href="/delete/<%= file.id %>">Delete</a>
+          </form>
         </div>
       </li>
       <% }) %>
