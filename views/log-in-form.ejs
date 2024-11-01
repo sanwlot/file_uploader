@@ -1,8 +1,119 @@
-<h1>please log in</h1>
-<form action="/log-in" method="POST">
-  <label for="email">Email</label>
-  <input id="email" name="email" placeholder="email" type="email" />
-  <label for="password">Password</label>
-  <input id="password" name="password" type="password" />
-  <button>Log In</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <style>
+    /* General Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f0f2f5;
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+      font-size: 24px;
+      color: #333;
+    }
+
+    /* Form Container */
+    .form-container {
+      background-color: #fff;
+      padding: 2rem;
+      width: 100%;
+      max-width: 400px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Form Field Styles */
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    input:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    /* Button Styles */
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Additional link */
+    .form-footer {
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .form-footer a {
+      color: #007bff;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .form-footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="form-container">
+    <h1>Please Log In</h1>
+    <form action="/log-in" method="POST">
+      <label for="email">Email</label>
+      <input id="email" name="email" placeholder="Enter your email" type="email" required />
+
+      <label for="password">Password</label>
+      <input id="password" name="password" placeholder="Enter your password" type="password" required />
+
+      <button type="submit">Log In</button>
+    </form>
+    <div class="form-footer">
+      <a href="/forgot-password">Forgot Password?</a>
+    </div>
+  </div>
+
+</body>
+
+</html>
