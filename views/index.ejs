@@ -3,109 +3,98 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>File Uploader</title>
   <style>
-    /* Reset and font setup */
+    /* Reset and General Styles */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: Arial, sans-serif;
     }
 
-    .folder-link {
-      all: unset;
+    body {
+      background-color: #f4f6f9;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      color: #0056b3;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    /* User Info */
+    .user-info {
       display: flex;
       align-items: center;
       justify-content: space-between;
       width: 100%;
-    }
-
-    .upload-file-container {
-      color: white;
-      text-align: center;
-    }
-
-    .upload-file {
-      color: white;
-      text-decoration: none;
+      max-width: 600px;
+      margin-bottom: 1.5rem;
       background-color: #007bff;
-      padding: 0.5rem;
-      border-radius: 4px;
-      transition: background-color 0.3s;
-    }
-
-    .upload-file:hover {
-      background-color: #05356a;
-
-    }
-
-
-    .delete-folder-btn {
-      margin: 0;
-      padding: 1px 5px;
-      background-color: white;
-      font-size: 10px;
-      color: black;
-    }
-
-    .delete-folder-form {
-      padding: 0;
-
-    }
-
-
-    body {
-      font-family: Arial, sans-serif;
-      /* min-height: 100vh; */
-      background-color: #333;
       color: white;
-    }
-
-    h1 {
-      font-size: 2em;
-      color: white;
-      margin-bottom: 1rem;
-      text-align: center;
-    }
-
-    .user-info {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      align-items: center;
-      margin-bottom: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
     }
 
     .user-info h3 {
-      font-size: 1.2em;
+      margin: 0;
+      font-size: 1.5rem;
     }
 
     .user-info a {
+      color: white;
       text-decoration: none;
-      color: #007bff;
       font-weight: bold;
       transition: color 0.3s;
     }
 
     .user-info a:hover {
-      color: #0056b3;
+      color: #ddd;
     }
 
+    /* Upload File Button */
+    .upload-file-container {
+      margin: 1rem 0 2rem;
+      text-align: center;
+    }
+
+    .upload-file {
+      color: white;
+      background-color: #28a745;
+      text-decoration: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+
+    .upload-file:hover {
+      background-color: #218838;
+    }
+
+    /* Folder List Container */
     .folder-list-container {
-      background: white;
-      padding: 1.5rem;
-      margin: 1.5rem;
+      background-color: white;
+      padding: 2rem;
       border-radius: 8px;
       width: 100%;
-      max-width: 300px;
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
       text-align: center;
     }
 
     .folder-list-container h2 {
-      font-size: 1.4em;
-      margin-bottom: 1rem;
       color: #333;
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
     }
 
     .folder-list {
@@ -115,54 +104,85 @@
     .folder-item {
       display: flex;
       align-items: center;
-      padding: 0.8rem;
+      justify-content: space-between;
+      background-color: #f9f9f9;
+      padding: 0.8rem 1rem;
       border-radius: 5px;
-      transition: background-color 0.2s;
-      background-color: #333;
-      cursor: pointer;
-      margin-bottom: 10px;
+      margin-bottom: 1rem;
+      transition: background-color 0.3s;
     }
 
     .folder-item:hover {
-      background-color: black;
+      background-color: #e9ecef;
+    }
+
+    .folder-link {
+      all: unset;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #007bff;
+      font-weight: bold;
+      cursor: pointer;
     }
 
     .folder-icon {
-      font-size: 1.5em;
-      color: #007bff;
-      margin-right: 0.6rem;
+      font-size: 1.5rem;
     }
 
-    .folder-item span {
-      font-size: 1em;
+    /* Delete Folder Button */
+    .delete-folder-form {
+      margin: 0;
     }
 
+    .delete-folder-btn {
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.8rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .delete-folder-btn:hover {
+      background-color: #c82333;
+    }
+
+    /* Form for Adding New Folder */
     form {
       display: flex;
       flex-direction: column;
-      gap: 0.8rem;
-      padding: 1rem;
-      border: 1px solid #ddd;
+      gap: 1rem;
+      margin-top: 2rem;
+      padding: 1.5rem;
       border-radius: 8px;
-      background: white;
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      background-color: #f8f9fa;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
     }
 
     label {
-      font-size: 0.9em;
+      font-size: 1rem;
       color: #555;
     }
 
     input {
-      padding: 0.5rem;
-      font-size: 1em;
+      padding: 0.6rem;
+      font-size: 1rem;
       border: 1px solid #ddd;
       border-radius: 4px;
+      transition: border-color 0.3s;
+    }
+
+    input:focus {
+      border-color: #007bff;
+      outline: none;
     }
 
     button {
-      padding: 0.6rem;
-      font-size: 1em;
+      padding: 0.8rem;
+      font-size: 1rem;
       background-color: #007bff;
       color: white;
       border: none;
@@ -172,67 +192,77 @@
     }
 
     button:hover {
-      color: red;
+      background-color: #0056b3;
     }
 
+    /* Sign-Up Link and Login Form */
     .sign-up-p {
-      margin-bottom: 10px;
+      margin-top: 2rem;
+      font-size: 1.1rem;
+      color: #555;
     }
 
     .sign-up-link {
-      color: white;
+      color: #007bff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .sign-up-link:hover {
+      color: #0056b3;
     }
   </style>
 </head>
 
-
-
 <body>
-  <h1>FILE UPLOADER</h1>
-  <% if (locals.user) {%>
+  <h1>File Uploader</h1>
+
+  <% if (locals.user) { %>
   <div class="user-info">
-    <h3><%= user.name %></h3>
-    <a href="/log-out">LOG OUT</a>
+    <h3>Welcome, <%= user.name %></h3>
+    <a href="/log-out">Log Out</a>
   </div>
+
   <div class="upload-file-container">
     <a class="upload-file" href="/file-upload">Upload File</a>
   </div>
 
   <div class="folder-list-container">
-    <h2>Folders</h2>
+    <h2>Your Folders</h2>
     <form action="/folders/new-folder" method="post">
-      <label for="new-folder">New folder name</label>
-      <input type="text" name="newFolder" id="new-folder">
-      <button>Create</button>
+      <label for="new-folder">Create New Folder</label>
+      <input type="text" name="newFolder" id="new-folder" placeholder="Enter folder name" required>
+      <button type="submit">Create Folder</button>
     </form>
+
     <ul class="folder-list">
       <% locals.folders.forEach(folder => { %>
       <% if(folder.userId === locals.user.id) { %>
       <li class="folder-item">
         <a class="folder-link" href="/folders/<%= folder.id %>">
-          <div style="display: flex; align-items: center;">
-            <div class="folder-icon">&#128193;</div>
-            <span><%= folder.name %></span>
-          </div>
-          <form class="delete-folder-form" action="/folders/delete/<%= folder.id %>" method="POST">
-            <button class="delete-folder-btn">Delete</button>
-          </form>
+          <span class="folder-icon">&#128193;</span>
+          <span><%= folder.name %></span>
         </a>
+        <form class="delete-folder-form" action="/folders/delete/<%= folder.id %>" method="POST">
+          <button class="delete-folder-btn">Delete</button>
+        </form>
       </li>
       <% } %>
       <% }) %>
     </ul>
   </div>
   <% } else { %>
-  <h1>Please log-in to continue</h1>
-  <p class="sign-up-p">Click here to <a class="sign-up-link" href="/sign-up">sign up</a></p>
+  <h3>Please Log In to Continue</h3>
+  <p class="sign-up-p">New here? <a class="sign-up-link" href="/sign-up">Sign up</a></p>
   <form action="/log-in" method="POST">
     <label for="email">Email</label>
-    <input id="email" name="email" placeholder="email" type="email" />
+    <input id="email" name="email" placeholder="Enter your email" type="email" required />
     <label for="password">Password</label>
-    <input id="password" name="password" type="password" />
-    <button>Log In</button>
+    <input id="password" name="password" placeholder="Enter your password" type="password" required />
+    <button type="submit">Log In</button>
   </form>
-  <%}%>
+  <% } %>
 </body>
+
 </html>
