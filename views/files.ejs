@@ -80,7 +80,7 @@
         <span class="file-name"><%= file.name %></span>
         <div class="file-actions">
           <a href="<%= file.url %>" target="_blank">View</a>
-          <a href="/download/<%= file.id %>">Download</a>
+          <!-- <a href="/download/<%= file.id %>">Download</a> -->
           <form action="/file/delete/<%= file.id %>" method="POST">
             <button style="all: unset; cursor: pointer; margin-left: 10px; color: red;">Delete</button>
           </form>
