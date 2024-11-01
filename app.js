@@ -34,4 +34,5 @@ app.use("/log-out", logOutRouter)
 app.use("/folders", foldersRouter)
 app.use("/file", deleteFileRouter)
 
-app.listen(4000, () => console.log("server started"))
+const PORT = process.env.PORT || 4000
+app.listen(PORT, () => console.log(`server started @ http://localhost:${PORT}`))
