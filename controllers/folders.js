@@ -49,7 +49,9 @@ export async function getFolder(req, res) {
     const folder = await prisma.folder.findUnique({
       where: { id: folderId },
       include: {
-        files: true,
+        files: {
+          orderBy: { uploadedAt: "desc" },
+        },
       },
     })
 
@@ -70,9 +72,7 @@ export async function deleteFolder(req, res) {
   try {
     // find all files of the folder
     const files = await prisma.file.findMany({
-      where: {
-        folderId,
-      },
+      where: { folderId },
     })
 
     // delete files from Cloudinary
