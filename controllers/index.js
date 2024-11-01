@@ -1,9 +1,21 @@
 import { prisma } from "../db.js"
 
 export async function indexController(req, res) {
-  let folders = []
+  const userId = req.user?.id
+  let userFolders = []
+
   try {
-    folders = await prisma.folder.findMany()
-  } catch (error) {}
-  res.render("index", { user: req.user, folders })
+    // Fetch folders only for the logged-in user
+    if (userId) {
+      userFolders = await prisma.folder.findMany({
+        where: { userId },
+        orderBy: { createdAt: "desc" }, // sort by creation date
+      })
+    }
+  } catch (error) {
+    console.error("Error fetching folders:", error)
+    return res.status(500).send("Error loading folders") // return an error response
+  }
+
+  res.render("index", { user: req.user, folders: userFolders })
 }
